@@ -8,7 +8,8 @@ class Profile {
         // email must be a valid email
     }
 
-    static hasMany = [raindrop:Raindrop, friendship:Friendship]
+    static hasMany = [raindrop:Raindrop, friends:Profile]
+    static belongsTo = [profile:Profile]
 
     String email
     String password
