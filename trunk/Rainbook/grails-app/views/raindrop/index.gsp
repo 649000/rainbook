@@ -11,6 +11,11 @@
     <title>Sample title</title>
   </head>
   <body>
-    <h1>Sample line</h1>
+    <h1>Rain drop</h1>
+
+    <g:form>
+  Splash Rain:<br/> <g:textArea name="text" /><br/>
+  <g:submitButton  action="save" value="Splash it!"/>
+</g:form>
   </body>
 </html>
