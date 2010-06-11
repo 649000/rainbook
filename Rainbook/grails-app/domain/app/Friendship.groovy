@@ -1,6 +1,7 @@
 package app
 
-class Friendship {
+class Friendship
+{
 
     static constraints =
     {
