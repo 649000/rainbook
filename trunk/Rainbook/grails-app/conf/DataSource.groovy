@@ -3,7 +3,7 @@ dataSource {
         driverClassName = "com.mysql.jdbc.Driver"
         username = "root"
         password = ""
-        dbCreate = "create"
+        dbCreate = "update"
         url = "jdbc:mysql://localhost:3306/rainbookdb"
 }
 hibernate {
