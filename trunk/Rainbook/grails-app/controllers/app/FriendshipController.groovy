@@ -48,6 +48,8 @@ class FriendshipController
     def delete =
     {
 
+        def friendID = params.id
+
         if(   session.userid.toString().equals( friendID.toString() )   )
         {
             flash.message = "An error occured while deleting the friend."
@@ -84,7 +86,19 @@ class FriendshipController
 
     def save =
     {
-        
+        def friendID = params.id
+        def p = session.userid + "," + friendID
+        def friendship = new Friendship(parties: p)
+
+        if( friendship.save() )
+        {
+            flash.message = "Friendship created!"
+            redirect(action: "list")
+        }
+        else
+        {
+            render(view: "create")
+        }
     }
     
 }
