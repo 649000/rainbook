@@ -47,32 +47,39 @@ class FriendshipController
 
     def delete =
     {
-        def friendID = params.id
 
-        if( session.userid == friendID )
+        if(   session.userid.toString().equals( friendID.toString() )   )
         {
             flash.message = "An error occured while deleting the friend."
-            redirect(action: "list")
-        }
-
-        def friendToBeRemoved = Friendship.findByPartiesLike(friendID + ",%")
-        if(friendToBeRemoved == null)
-        {
-            friendToBeRemoved = Friendship.findByPartiesLike( "%," + friendID )
-        }
-
-        if( friendToBeRemoved!= null )
-        {
-            friendToBeRemoved.delete();
-            flash.message = "Friend Deleted!"
             redirect(action: "list")
         }
         else
         {
-            flash.message = "An error occured while deleting the friend."
-            redirect(action: "list")
+            def friendToBeRemoved = Friendship.findByPartiesLike(friendID + ",%")
+            if(friendToBeRemoved == null)
+            {
+                friendToBeRemoved = Friendship.findByPartiesLike( "%," + friendID )
+            }
+
+            if( friendToBeRemoved!= null )
+            {
+                friendToBeRemoved.delete();
+                flash.message = "Friend Deleted!"
+                redirect(action: "list")
+            }
+            else
+            {
+                flash.message = "An error occured while deleting the friend."
+                redirect(action: "list")
+            }
         }
 
+    }
+
+    def create =
+    {
+        params.max = 10
+        return [profiles: Profile.list(params), id: session.id]
     }
     
 }
