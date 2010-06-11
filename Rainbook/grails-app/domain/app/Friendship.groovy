@@ -7,6 +7,6 @@ class Friendship
     {
     }
 
-    String id
+    String parties
 
 }
