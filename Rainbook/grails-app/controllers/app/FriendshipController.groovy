@@ -21,13 +21,15 @@ class FriendshipController
         {
             String[] parties = f.toString().split(",")
             completeFriendIDList.add(parties[1])
+            System.out.println(parties[1])
         }
 
         // Retrieve the ID of the other party from friendList2
         for(Friendship f : friendList2)
         {
-            String[] parties = f.toString().split(",")
-            completeFriendIDList.add(parties[0])
+            String[] parties2 = f.toString().split(",")
+            completeFriendIDList.add(parties2[0])
+            System.out.println(parties2[0])
         }
 
         def completeFriendList = new ArrayList()
@@ -37,8 +39,40 @@ class FriendshipController
             completeFriendList.add( Profile.findById(s) )
         }
 
+        def currentUser = Profile.findById( session.userid )
+
         // def c = friendList + friendList2
-        render(view: "list", model: [friends: completeFriendList] )
+        [friends: completeFriendList, currentUser: currentUser]
+    }
+
+    def delete =
+    {
+        def friendID = params.id
+
+        if( session.userid == friendID )
+        {
+            flash.message = "An error occured while deleting the friend."
+            redirect(action: "list")
+        }
+
+        def friendToBeRemoved = Friendship.findByPartiesLike(friendID + ",%")
+        if(friendToBeRemoved == null)
+        {
+            friendToBeRemoved = Friendship.findByPartiesLike( "%," + friendID )
+        }
+
+        if( friendToBeRemoved!= null )
+        {
+            friendToBeRemoved.delete();
+            flash.message = "Friend Deleted!"
+            redirect(action: "list")
+        }
+        else
+        {
+            flash.message = "An error occured while deleting the friend."
+            redirect(action: "list")
+        }
+
     }
     
 }
