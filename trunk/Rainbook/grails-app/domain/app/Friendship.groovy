@@ -9,4 +9,9 @@ class Friendship
 
     String parties
 
+    String toString()
+    {
+        return parties
+    }
+
 }
