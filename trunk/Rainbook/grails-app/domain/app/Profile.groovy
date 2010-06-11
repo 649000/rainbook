@@ -4,8 +4,10 @@ class Profile {
 
     static constraints =
     {
-        // add constraints here
-        // email must be a valid email
+          email(blank:false)
+        password(blank:false)
+        name(blank:false)
+        photo(blank:false)
     }
 
     static hasMany = [raindrop:Raindrop]
@@ -14,5 +16,10 @@ class Profile {
     String password
     String name
     String photo
+
+        String toString()
+    {
+        return name
+    }
 
 }
