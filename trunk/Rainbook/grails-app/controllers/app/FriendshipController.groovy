@@ -79,7 +79,12 @@ class FriendshipController
     def create =
     {
         params.max = 10
-        return [profiles: Profile.list(params), id: session.id]
+        return [profiles: Profile.list(params), userid: session.userid]
+    }
+
+    def save =
+    {
+        
     }
     
 }
